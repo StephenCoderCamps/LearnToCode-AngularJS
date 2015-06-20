@@ -1,0 +1,81 @@
+﻿@{
+    Layout = null;
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="MovieApp">
+<head>
+    <title></title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body ng-controller="MovieListController as movieList">
+
+    <div class="container">
+        <div class="row">
+            <i>Page rendered at @DateTime.Now.ToLongTimeString()</i>
+        </div>
+        <div class="row">
+            <a ng-click="movieList.addNew()">Create New</a>
+        </div>
+        <div class="row">
+            <select ng-model="movieList.selectedCategory" ng-options="category.Name for category in movieList.categories" ng-change="movieList.selectCategory()"></select>
+        </div>
+
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Director</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="movie in movieList.movies">
+                        <td>{{movie.Title}}</td>
+                        <td>{{movie.Director}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row">
+            <pagination total-items="movieList.moviesTotalCount" items-per-page="5" ng-model="movieList.currentPageIndex" ng-change="movieList.pageChanged()"></pagination>
+        </div>
+
+    </div>
+
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/ngApps/app.js"></script>
+    <script src="~/ngApps/controllers.js"></script>
+
+
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Create New Movie</h3>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="title">Movie Title</label>
+                    <input name="title" ng-model="modal.newMovie.title" type="text" class="form-control" id="title" placeholder="Movie title">
+                </div>
+                <div class="form-group">
+                    <label for="director">Movie Director</label>
+                    <input name="director" ng-model="modal.newMovie.director" type="text" class="form-control" id="director" placeholder="Movie director">
+                </div>
+                <div class="form-group">
+                    <label for="category">Movie Category</label>
+                    <select ng-model="modal.newMovie.categoryId" ng-options="category.Id as category.Name for category in movieList.categories" class="form-control">
+                        <option value="">-- Choose Category --</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="modal.save()">Save</button>
+            <button class="btn btn-warning" ng-click="modal.cancel()">Cancel</button>
+        </div>
+    </script>
+
+</body>
+</html>
