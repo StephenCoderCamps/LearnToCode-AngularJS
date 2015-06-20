@@ -37,5 +37,12 @@ namespace MovieAppClient.API
             _db.SaveChanges();
             return movie;
         }
+
+
+        public Movie Get(int id)
+        {
+            return _db.Movies.Find(id);
+        }
+
     }
 }

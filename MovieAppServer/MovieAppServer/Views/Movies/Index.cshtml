@@ -3,7 +3,9 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<div class="row">
+    <i>Page rendered at @DateTime.Now.ToLongTimeString()</i>
+</div>
 <h2>Index</h2>
 
 @using (Html.BeginForm("Index", "Movies", FormMethod.Get)) {

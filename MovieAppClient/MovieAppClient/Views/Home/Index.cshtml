@@ -29,7 +29,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="movie in movieList.movies">
+                    <tr ng-repeat="movie in movieList.movies" ng-click="movieList.details(movie.Id)">
                         <td>{{movie.Title}}</td>
                         <td>{{movie.Director}}</td>
                     </tr>
@@ -48,8 +48,21 @@
     <script src="~/ngApps/app.js"></script>
     <script src="~/ngApps/controllers.js"></script>
 
+    <script type="text/ng-template" id="ModalDetails.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Movie Details</h3>
+        </div>
+        <div class="modal-body">
+            <h1>{{modal.movie.Title}}</h1>
+            <div>Title: {{modal.movie.Title}}</div>
+            <div>Director: {{modal.movie.Director}}</div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="modal.ok()">OK</button>
+        </div>
+    </script>
 
-    <script type="text/ng-template" id="myModalContent.html">
+    <script type="text/ng-template" id="ModalCreate.html">
         <div class="modal-header">
             <h3 class="modal-title">Create New Movie</h3>
         </div>
