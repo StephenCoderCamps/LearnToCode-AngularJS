@@ -1,0 +1,61 @@
+﻿@model MovieAppServer.Views.Movies.IndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("Index", "Movies", FormMethod.Get)) {
+    @Html.DropDownList("categoryId", Model.Categories)
+    <input type="submit" value="Select" />
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+            Director
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Category.Movies) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Director)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<nav>
+    <ul class="pagination">
+        @for (var pageIndex = 0; pageIndex < Model.PageCount; pageIndex++) {
+            if (Model.CurrentPageIndex == pageIndex) {
+                <li class="active"><a href="?categoryId=@Model.Category.Id&pageIndex=@pageIndex">@(pageIndex + 1)</a></li>
+            }
+            else {
+                <li><a href="?categoryId=@Model.Category.Id&pageIndex=@pageIndex">@(pageIndex + 1)</a></li>
+            }
+
+        }
+    </ul>
+</nav>
+
+
